@@ -79,6 +79,7 @@ CMakeFiles/opencv_project.dir/bla.cpp.o: \
  /usr/local/include/opencv4/opencv2/flann/saving.h \
  /usr/local/include/opencv4/opencv2/flann/timer.h \
  /usr/local/include/opencv4/opencv2/highgui.hpp \
+ /usr/local/include/opencv4/opencv2/highgui/highgui.hpp \
  /usr/local/include/opencv4/opencv2/imgcodecs.hpp \
  /usr/local/include/opencv4/opencv2/imgproc.hpp \
  /usr/local/include/opencv4/opencv2/imgproc/segmentation.hpp \
