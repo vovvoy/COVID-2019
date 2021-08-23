@@ -10,7 +10,7 @@
 using namespace std;
 using namespace cv;
 Mat frame;
-void DrawImage(int x, int y){
+void DrawKnife(int x, int y){
 	for (int i = x - 1; i < x + 2; i++){
 		for (int j = y - 1; j < y + 2; j++){
 			frame.at<Vec3b>(i, j)[0] = 255;
