@@ -8,7 +8,7 @@ set(CMAKE_DEPENDS_LANGUAGES
   )
 # The set of files for implicit dependencies of each language:
 set(CMAKE_DEPENDS_CHECK_CXX
-  "/home/ljerrica/Desktop/opencv_project/bla.cpp" "/home/ljerrica/Desktop/opencv_project/cmake-build-debug/CMakeFiles/opencv_project.dir/bla.cpp.o"
+  "/home/ljerrica/Desktop/opencv_project/color_detection.cpp" "/home/ljerrica/Desktop/opencv_project/cmake-build-debug/CMakeFiles/opencv_project.dir/color_detection.cpp.o"
   )
 set(CMAKE_CXX_COMPILER_ID "GNU")
 

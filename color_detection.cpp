@@ -60,7 +60,7 @@ int main()
 		int mid_i = (min_i + max_i) / 2;
 		int mid_j = (min_j + max_j) / 2;
 		if (min_i < 1000000 && min_j < 1000000)
-			DrawImage(mid_i, mid_j);
+			DrawKnife(mid_i, mid_j);
 		cv::imshow("frame", frame);
 		if (cv::waitKey(30) >= 0) break;
 	}

@@ -86,7 +86,7 @@
 				</MakeCommands>
 			</Target>
 		</Build>
-		<Unit filename="/home/ljerrica/Desktop/opencv_project/bla.cpp">
+		<Unit filename="/home/ljerrica/Desktop/opencv_project/color_detection.cpp">
 			<Option target="opencv_project"/>
 		</Unit>
 		<Unit filename="/home/ljerrica/Desktop/opencv_project/CMakeLists.txt">

@@ -129,29 +129,29 @@ opencv_project/fast:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/opencv_project.dir/build.make CMakeFiles/opencv_project.dir/build
 .PHONY : opencv_project/fast
 
-bla.o: bla.cpp.o
-.PHONY : bla.o
+color_detection.o: color_detection.cpp.o
+.PHONY : color_detection.o
 
 # target to build an object file
-bla.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/opencv_project.dir/build.make CMakeFiles/opencv_project.dir/bla.cpp.o
-.PHONY : bla.cpp.o
+color_detection.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/opencv_project.dir/build.make CMakeFiles/opencv_project.dir/color_detection.cpp.o
+.PHONY : color_detection.cpp.o
 
-bla.i: bla.cpp.i
-.PHONY : bla.i
+color_detection.i: color_detection.cpp.i
+.PHONY : color_detection.i
 
 # target to preprocess a source file
-bla.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/opencv_project.dir/build.make CMakeFiles/opencv_project.dir/bla.cpp.i
-.PHONY : bla.cpp.i
+color_detection.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/opencv_project.dir/build.make CMakeFiles/opencv_project.dir/color_detection.cpp.i
+.PHONY : color_detection.cpp.i
 
-bla.s: bla.cpp.s
-.PHONY : bla.s
+color_detection.s: color_detection.cpp.s
+.PHONY : color_detection.s
 
 # target to generate assembly for a file
-bla.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/opencv_project.dir/build.make CMakeFiles/opencv_project.dir/bla.cpp.s
-.PHONY : bla.cpp.s
+color_detection.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/opencv_project.dir/build.make CMakeFiles/opencv_project.dir/color_detection.cpp.s
+.PHONY : color_detection.cpp.s
 
 # Help Target
 help:
@@ -162,9 +162,9 @@ help:
 	@echo "... edit_cache"
 	@echo "... rebuild_cache"
 	@echo "... opencv_project"
-	@echo "... bla.o"
-	@echo "... bla.i"
-	@echo "... bla.s"
+	@echo "... color_detection.o"
+	@echo "... color_detection.i"
+	@echo "... color_detection.s"
 .PHONY : help
 
 

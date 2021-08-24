@@ -1,5 +1,5 @@
 file(REMOVE_RECURSE
-  "CMakeFiles/opencv_project.dir/bla.cpp.o"
+  "CMakeFiles/opencv_project.dir/color_detection.cpp.o"
   "opencv_project"
   "opencv_project.pdb"
 )

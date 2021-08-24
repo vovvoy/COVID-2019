@@ -66,27 +66,27 @@ include CMakeFiles/opencv_project.dir/progress.make
 # Include the compile flags for this target's objects.
 include CMakeFiles/opencv_project.dir/flags.make
 
-CMakeFiles/opencv_project.dir/bla.cpp.o: CMakeFiles/opencv_project.dir/flags.make
-CMakeFiles/opencv_project.dir/bla.cpp.o: ../bla.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/ljerrica/Desktop/opencv_project/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Building CXX object CMakeFiles/opencv_project.dir/bla.cpp.o"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/opencv_project.dir/bla.cpp.o -c /home/ljerrica/Desktop/opencv_project/bla.cpp
+CMakeFiles/opencv_project.dir/color_detection.cpp.o: CMakeFiles/opencv_project.dir/flags.make
+CMakeFiles/opencv_project.dir/color_detection.cpp.o: ../color_detection.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/ljerrica/Desktop/opencv_project/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Building CXX object CMakeFiles/opencv_project.dir/color_detection.cpp.o"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/opencv_project.dir/color_detection.cpp.o -c /home/ljerrica/Desktop/opencv_project/color_detection.cpp
 
-CMakeFiles/opencv_project.dir/bla.cpp.i: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/opencv_project.dir/bla.cpp.i"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/ljerrica/Desktop/opencv_project/bla.cpp > CMakeFiles/opencv_project.dir/bla.cpp.i
+CMakeFiles/opencv_project.dir/color_detection.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/opencv_project.dir/color_detection.cpp.i"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/ljerrica/Desktop/opencv_project/color_detection.cpp > CMakeFiles/opencv_project.dir/color_detection.cpp.i
 
-CMakeFiles/opencv_project.dir/bla.cpp.s: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/opencv_project.dir/bla.cpp.s"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/ljerrica/Desktop/opencv_project/bla.cpp -o CMakeFiles/opencv_project.dir/bla.cpp.s
+CMakeFiles/opencv_project.dir/color_detection.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/opencv_project.dir/color_detection.cpp.s"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/ljerrica/Desktop/opencv_project/color_detection.cpp -o CMakeFiles/opencv_project.dir/color_detection.cpp.s
 
 # Object files for target opencv_project
 opencv_project_OBJECTS = \
-"CMakeFiles/opencv_project.dir/bla.cpp.o"
+"CMakeFiles/opencv_project.dir/color_detection.cpp.o"
 
 # External object files for target opencv_project
 opencv_project_EXTERNAL_OBJECTS =
 
-opencv_project: CMakeFiles/opencv_project.dir/bla.cpp.o
+opencv_project: CMakeFiles/opencv_project.dir/color_detection.cpp.o
 opencv_project: CMakeFiles/opencv_project.dir/build.make
 opencv_project: /usr/local/lib/libopencv_gapi.so.4.5.3
 opencv_project: /usr/local/lib/libopencv_stitching.so.4.5.3
