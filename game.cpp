@@ -15,7 +15,6 @@ using namespace cv;
 using namespace std;
 Mat frame, game_frame, bla, enemyImage, knifeImage, hsv, mask;
 short score = 0;
-//pair<double, double> enemy, prev_knife;
 double speed = 3.0;
 int num_frames = 0, hp = 100;
 bool isGameEnded = false;
@@ -28,10 +27,7 @@ typedef struct s_enemy{
 	double speed;
 	int hp;
 } t_enemy;
-int m = 0;
 vector<t_enemy> enemies;
-bool virus_flag = false;
-//VideoCapture teleport;
 time_t seconds = std::time(nullptr);
 
 time_t enemyBurn = std::time(nullptr);
@@ -76,7 +72,7 @@ pair<double, double> FindKnife(Mat mask){
 	return make_pair((min_i + max_i) / 2, (min_j + max_j) / 2);
 }
 
-void MoveVirus(){
+void MoveEnemy(){
 	for (auto enem = enemies.begin(); enem < enemies.end(); enem++)
 		if ((enem->x + enem->vecX * enem->speed + (double)enemyImage.rows / 2 < game_frame.rows &&
 			enem->x + enem->vecX * enem->speed + (double)enemyImage.rows / 2 > enemyImage.rows &&
@@ -98,13 +94,10 @@ void CreateEnemy(){
 		t_enemy enemy;
 		enemy.x = game_frame.rows / 2;
 		enemy.y = game_frame.cols / 2;
-		enemy.vecX = 1;
-		enemy.vecY = 0;
 		enemy.speed = speed;
 		enemy.angle = rand() % 360;
-		double oldX = enemy.vecX;
-		enemy.vecX = enemy.vecX * cos(enemy.angle) - enemy.vecY * sin(enemy.angle);
-		enemy.vecY = oldX * sin(enemy.angle) + enemy.vecY * cos(enemy.angle);
+		enemy.vecX = 1 * cos(enemy.angle);
+		enemy.vecY = 1 * sin(enemy.angle);
 		enemy.hp = 100;
 		enemies.push_back(enemy);
 		enemyBurn = std::time(nullptr);
@@ -143,7 +136,6 @@ int main(int argc, char* argv[])
 {
 	pair<double, double> knife, oldKnife;
 	int minH = 7, maxH = 32, minS = 246, maxS = 255, minV = 200, maxV = 255;
-	std::vector<std::pair<int, int> >  line;
 	cv::VideoCapture cap(0), teleport;
 	cap.set(cv::CAP_PROP_FPS, 30);
 	time_t start, end;
@@ -183,7 +175,7 @@ int main(int argc, char* argv[])
 		}
 		cv::putText(game_frame, "score: " + to_string(score), cv::Point(10, 20), cv::FONT_HERSHEY_PLAIN, 1.5, cv::Scalar(255), 2);
 		CreateEnemy();
-		MoveVirus();
+		MoveEnemy();
 		oldKnife = knife;
 		knife = FindKnife(mask);
 		MoveKnife(knife, oldKnife);

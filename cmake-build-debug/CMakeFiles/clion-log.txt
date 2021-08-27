@@ -1,4 +1,4 @@
-/snap/clion/162/bin/cmake/linux/bin/cmake -DCMAKE_BUILD_TYPE=Debug -DCMAKE_DEPENDS_USE_COMPILER=FALSE -G "CodeBlocks - Unix Makefiles" /home/ljerrica/Desktop/opencv_project
+/snap/clion/163/bin/cmake/linux/bin/cmake -DCMAKE_BUILD_TYPE=Debug -DCMAKE_DEPENDS_USE_COMPILER=FALSE -G "CodeBlocks - Unix Makefiles" /home/ljerrica/Desktop/opencv_project
 -- Configuring done
 -- Generating done
 -- Build files have been written to: /home/ljerrica/Desktop/opencv_project/cmake-build-debug

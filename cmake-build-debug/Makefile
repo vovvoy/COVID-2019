@@ -48,10 +48,10 @@ cmake_force:
 SHELL = /bin/sh
 
 # The CMake executable.
-CMAKE_COMMAND = /snap/clion/162/bin/cmake/linux/bin/cmake
+CMAKE_COMMAND = /snap/clion/163/bin/cmake/linux/bin/cmake
 
 # The command to remove a file.
-RM = /snap/clion/162/bin/cmake/linux/bin/cmake -E rm -f
+RM = /snap/clion/163/bin/cmake/linux/bin/cmake -E rm -f
 
 # Escaping for special characters.
 EQUALS = =
@@ -68,7 +68,7 @@ CMAKE_BINARY_DIR = /home/ljerrica/Desktop/opencv_project/cmake-build-debug
 # Special rule for the target rebuild_cache
 rebuild_cache:
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Running CMake to regenerate build system..."
-	/snap/clion/162/bin/cmake/linux/bin/cmake --regenerate-during-build -S$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR)
+	/snap/clion/163/bin/cmake/linux/bin/cmake --regenerate-during-build -S$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR)
 .PHONY : rebuild_cache
 
 # Special rule for the target rebuild_cache
@@ -78,7 +78,7 @@ rebuild_cache/fast: rebuild_cache
 # Special rule for the target edit_cache
 edit_cache:
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "No interactive CMake dialog available..."
-	/snap/clion/162/bin/cmake/linux/bin/cmake -E echo No\ interactive\ CMake\ dialog\ available.
+	/snap/clion/163/bin/cmake/linux/bin/cmake -E echo No\ interactive\ CMake\ dialog\ available.
 .PHONY : edit_cache
 
 # Special rule for the target edit_cache
@@ -129,29 +129,101 @@ opencv_project/fast:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/opencv_project.dir/build.make CMakeFiles/opencv_project.dir/build
 .PHONY : opencv_project/fast
 
-color_detection.o: color_detection.cpp.o
-.PHONY : color_detection.o
+Enemy.o: Enemy.cpp.o
+.PHONY : Enemy.o
 
 # target to build an object file
-color_detection.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/opencv_project.dir/build.make CMakeFiles/opencv_project.dir/color_detection.cpp.o
-.PHONY : color_detection.cpp.o
+Enemy.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/opencv_project.dir/build.make CMakeFiles/opencv_project.dir/Enemy.cpp.o
+.PHONY : Enemy.cpp.o
 
-color_detection.i: color_detection.cpp.i
-.PHONY : color_detection.i
+Enemy.i: Enemy.cpp.i
+.PHONY : Enemy.i
 
 # target to preprocess a source file
-color_detection.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/opencv_project.dir/build.make CMakeFiles/opencv_project.dir/color_detection.cpp.i
-.PHONY : color_detection.cpp.i
+Enemy.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/opencv_project.dir/build.make CMakeFiles/opencv_project.dir/Enemy.cpp.i
+.PHONY : Enemy.cpp.i
 
-color_detection.s: color_detection.cpp.s
-.PHONY : color_detection.s
+Enemy.s: Enemy.cpp.s
+.PHONY : Enemy.s
 
 # target to generate assembly for a file
-color_detection.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/opencv_project.dir/build.make CMakeFiles/opencv_project.dir/color_detection.cpp.s
-.PHONY : color_detection.cpp.s
+Enemy.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/opencv_project.dir/build.make CMakeFiles/opencv_project.dir/Enemy.cpp.s
+.PHONY : Enemy.cpp.s
+
+Game.o: Game.cpp.o
+.PHONY : Game.o
+
+# target to build an object file
+Game.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/opencv_project.dir/build.make CMakeFiles/opencv_project.dir/Game.cpp.o
+.PHONY : Game.cpp.o
+
+Game.i: Game.cpp.i
+.PHONY : Game.i
+
+# target to preprocess a source file
+Game.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/opencv_project.dir/build.make CMakeFiles/opencv_project.dir/Game.cpp.i
+.PHONY : Game.cpp.i
+
+Game.s: Game.cpp.s
+.PHONY : Game.s
+
+# target to generate assembly for a file
+Game.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/opencv_project.dir/build.make CMakeFiles/opencv_project.dir/Game.cpp.s
+.PHONY : Game.cpp.s
+
+Weapon.o: Weapon.cpp.o
+.PHONY : Weapon.o
+
+# target to build an object file
+Weapon.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/opencv_project.dir/build.make CMakeFiles/opencv_project.dir/Weapon.cpp.o
+.PHONY : Weapon.cpp.o
+
+Weapon.i: Weapon.cpp.i
+.PHONY : Weapon.i
+
+# target to preprocess a source file
+Weapon.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/opencv_project.dir/build.make CMakeFiles/opencv_project.dir/Weapon.cpp.i
+.PHONY : Weapon.cpp.i
+
+Weapon.s: Weapon.cpp.s
+.PHONY : Weapon.s
+
+# target to generate assembly for a file
+Weapon.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/opencv_project.dir/build.make CMakeFiles/opencv_project.dir/Weapon.cpp.s
+.PHONY : Weapon.cpp.s
+
+main.o: main.cpp.o
+.PHONY : main.o
+
+# target to build an object file
+main.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/opencv_project.dir/build.make CMakeFiles/opencv_project.dir/main.cpp.o
+.PHONY : main.cpp.o
+
+main.i: main.cpp.i
+.PHONY : main.i
+
+# target to preprocess a source file
+main.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/opencv_project.dir/build.make CMakeFiles/opencv_project.dir/main.cpp.i
+.PHONY : main.cpp.i
+
+main.s: main.cpp.s
+.PHONY : main.s
+
+# target to generate assembly for a file
+main.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/opencv_project.dir/build.make CMakeFiles/opencv_project.dir/main.cpp.s
+.PHONY : main.cpp.s
 
 # Help Target
 help:
@@ -162,9 +234,18 @@ help:
 	@echo "... edit_cache"
 	@echo "... rebuild_cache"
 	@echo "... opencv_project"
-	@echo "... color_detection.o"
-	@echo "... color_detection.i"
-	@echo "... color_detection.s"
+	@echo "... Enemy.o"
+	@echo "... Enemy.i"
+	@echo "... Enemy.s"
+	@echo "... Game.o"
+	@echo "... Game.i"
+	@echo "... Game.s"
+	@echo "... Weapon.o"
+	@echo "... Weapon.i"
+	@echo "... Weapon.s"
+	@echo "... main.o"
+	@echo "... main.i"
+	@echo "... main.s"
 .PHONY : help
 
 

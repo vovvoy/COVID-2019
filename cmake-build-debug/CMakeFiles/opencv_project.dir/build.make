@@ -44,10 +44,10 @@ cmake_force:
 SHELL = /bin/sh
 
 # The CMake executable.
-CMAKE_COMMAND = /snap/clion/162/bin/cmake/linux/bin/cmake
+CMAKE_COMMAND = /snap/clion/163/bin/cmake/linux/bin/cmake
 
 # The command to remove a file.
-RM = /snap/clion/162/bin/cmake/linux/bin/cmake -E rm -f
+RM = /snap/clion/163/bin/cmake/linux/bin/cmake -E rm -f
 
 # Escaping for special characters.
 EQUALS = =
@@ -66,27 +66,72 @@ include CMakeFiles/opencv_project.dir/progress.make
 # Include the compile flags for this target's objects.
 include CMakeFiles/opencv_project.dir/flags.make
 
-CMakeFiles/opencv_project.dir/color_detection.cpp.o: CMakeFiles/opencv_project.dir/flags.make
-CMakeFiles/opencv_project.dir/color_detection.cpp.o: ../color_detection.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/ljerrica/Desktop/opencv_project/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Building CXX object CMakeFiles/opencv_project.dir/color_detection.cpp.o"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/opencv_project.dir/color_detection.cpp.o -c /home/ljerrica/Desktop/opencv_project/color_detection.cpp
+CMakeFiles/opencv_project.dir/main.cpp.o: CMakeFiles/opencv_project.dir/flags.make
+CMakeFiles/opencv_project.dir/main.cpp.o: ../main.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/ljerrica/Desktop/opencv_project/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Building CXX object CMakeFiles/opencv_project.dir/main.cpp.o"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/opencv_project.dir/main.cpp.o -c /home/ljerrica/Desktop/opencv_project/main.cpp
 
-CMakeFiles/opencv_project.dir/color_detection.cpp.i: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/opencv_project.dir/color_detection.cpp.i"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/ljerrica/Desktop/opencv_project/color_detection.cpp > CMakeFiles/opencv_project.dir/color_detection.cpp.i
+CMakeFiles/opencv_project.dir/main.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/opencv_project.dir/main.cpp.i"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/ljerrica/Desktop/opencv_project/main.cpp > CMakeFiles/opencv_project.dir/main.cpp.i
 
-CMakeFiles/opencv_project.dir/color_detection.cpp.s: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/opencv_project.dir/color_detection.cpp.s"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/ljerrica/Desktop/opencv_project/color_detection.cpp -o CMakeFiles/opencv_project.dir/color_detection.cpp.s
+CMakeFiles/opencv_project.dir/main.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/opencv_project.dir/main.cpp.s"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/ljerrica/Desktop/opencv_project/main.cpp -o CMakeFiles/opencv_project.dir/main.cpp.s
+
+CMakeFiles/opencv_project.dir/Weapon.cpp.o: CMakeFiles/opencv_project.dir/flags.make
+CMakeFiles/opencv_project.dir/Weapon.cpp.o: ../Weapon.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/ljerrica/Desktop/opencv_project/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Building CXX object CMakeFiles/opencv_project.dir/Weapon.cpp.o"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/opencv_project.dir/Weapon.cpp.o -c /home/ljerrica/Desktop/opencv_project/Weapon.cpp
+
+CMakeFiles/opencv_project.dir/Weapon.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/opencv_project.dir/Weapon.cpp.i"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/ljerrica/Desktop/opencv_project/Weapon.cpp > CMakeFiles/opencv_project.dir/Weapon.cpp.i
+
+CMakeFiles/opencv_project.dir/Weapon.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/opencv_project.dir/Weapon.cpp.s"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/ljerrica/Desktop/opencv_project/Weapon.cpp -o CMakeFiles/opencv_project.dir/Weapon.cpp.s
+
+CMakeFiles/opencv_project.dir/Enemy.cpp.o: CMakeFiles/opencv_project.dir/flags.make
+CMakeFiles/opencv_project.dir/Enemy.cpp.o: ../Enemy.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/ljerrica/Desktop/opencv_project/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_3) "Building CXX object CMakeFiles/opencv_project.dir/Enemy.cpp.o"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/opencv_project.dir/Enemy.cpp.o -c /home/ljerrica/Desktop/opencv_project/Enemy.cpp
+
+CMakeFiles/opencv_project.dir/Enemy.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/opencv_project.dir/Enemy.cpp.i"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/ljerrica/Desktop/opencv_project/Enemy.cpp > CMakeFiles/opencv_project.dir/Enemy.cpp.i
+
+CMakeFiles/opencv_project.dir/Enemy.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/opencv_project.dir/Enemy.cpp.s"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/ljerrica/Desktop/opencv_project/Enemy.cpp -o CMakeFiles/opencv_project.dir/Enemy.cpp.s
+
+CMakeFiles/opencv_project.dir/Game.cpp.o: CMakeFiles/opencv_project.dir/flags.make
+CMakeFiles/opencv_project.dir/Game.cpp.o: ../Game.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/ljerrica/Desktop/opencv_project/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_4) "Building CXX object CMakeFiles/opencv_project.dir/Game.cpp.o"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/opencv_project.dir/Game.cpp.o -c /home/ljerrica/Desktop/opencv_project/Game.cpp
+
+CMakeFiles/opencv_project.dir/Game.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/opencv_project.dir/Game.cpp.i"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/ljerrica/Desktop/opencv_project/Game.cpp > CMakeFiles/opencv_project.dir/Game.cpp.i
+
+CMakeFiles/opencv_project.dir/Game.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/opencv_project.dir/Game.cpp.s"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/ljerrica/Desktop/opencv_project/Game.cpp -o CMakeFiles/opencv_project.dir/Game.cpp.s
 
 # Object files for target opencv_project
 opencv_project_OBJECTS = \
-"CMakeFiles/opencv_project.dir/color_detection.cpp.o"
+"CMakeFiles/opencv_project.dir/main.cpp.o" \
+"CMakeFiles/opencv_project.dir/Weapon.cpp.o" \
+"CMakeFiles/opencv_project.dir/Enemy.cpp.o" \
+"CMakeFiles/opencv_project.dir/Game.cpp.o"
 
 # External object files for target opencv_project
 opencv_project_EXTERNAL_OBJECTS =
 
-opencv_project: CMakeFiles/opencv_project.dir/color_detection.cpp.o
+opencv_project: CMakeFiles/opencv_project.dir/main.cpp.o
+opencv_project: CMakeFiles/opencv_project.dir/Weapon.cpp.o
+opencv_project: CMakeFiles/opencv_project.dir/Enemy.cpp.o
+opencv_project: CMakeFiles/opencv_project.dir/Game.cpp.o
 opencv_project: CMakeFiles/opencv_project.dir/build.make
 opencv_project: /usr/local/lib/libopencv_gapi.so.4.5.3
 opencv_project: /usr/local/lib/libopencv_stitching.so.4.5.3
@@ -142,7 +187,7 @@ opencv_project: /usr/local/lib/libopencv_photo.so.4.5.3
 opencv_project: /usr/local/lib/libopencv_imgproc.so.4.5.3
 opencv_project: /usr/local/lib/libopencv_core.so.4.5.3
 opencv_project: CMakeFiles/opencv_project.dir/link.txt
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/home/ljerrica/Desktop/opencv_project/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Linking CXX executable opencv_project"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/home/ljerrica/Desktop/opencv_project/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_5) "Linking CXX executable opencv_project"
 	$(CMAKE_COMMAND) -E cmake_link_script CMakeFiles/opencv_project.dir/link.txt --verbose=$(VERBOSE)
 
 # Rule to build all files generated by this target.

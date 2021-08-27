@@ -86,7 +86,25 @@
 				</MakeCommands>
 			</Target>
 		</Build>
-		<Unit filename="/home/ljerrica/Desktop/opencv_project/color_detection.cpp">
+		<Unit filename="/home/ljerrica/Desktop/opencv_project/Enemy.cpp">
+			<Option target="opencv_project"/>
+		</Unit>
+		<Unit filename="/home/ljerrica/Desktop/opencv_project/Enemy.hpp">
+			<Option target="opencv_project"/>
+		</Unit>
+		<Unit filename="/home/ljerrica/Desktop/opencv_project/Game.cpp">
+			<Option target="opencv_project"/>
+		</Unit>
+		<Unit filename="/home/ljerrica/Desktop/opencv_project/Game.hpp">
+			<Option target="opencv_project"/>
+		</Unit>
+		<Unit filename="/home/ljerrica/Desktop/opencv_project/Weapon.cpp">
+			<Option target="opencv_project"/>
+		</Unit>
+		<Unit filename="/home/ljerrica/Desktop/opencv_project/Weapon.hpp">
+			<Option target="opencv_project"/>
+		</Unit>
+		<Unit filename="/home/ljerrica/Desktop/opencv_project/main.cpp">
 			<Option target="opencv_project"/>
 		</Unit>
 		<Unit filename="/home/ljerrica/Desktop/opencv_project/CMakeLists.txt">
