@@ -6,6 +6,7 @@ set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++11")
 
 find_package( OpenCV REQUIRED )
 set(SOURCE_FILES main.cpp Weapon.cpp Enemy.cpp Game.cpp)
+#set(SOURCE_FILES color_detection.cpp)
 add_executable( opencv_project ${SOURCE_FILES})
 include_directories(${OpenCV_INCLUDE_DIRS})
 target_link_libraries( ${PROJECT_NAME} ${OpenCV_LIBS} )

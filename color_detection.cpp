@@ -10,7 +10,7 @@
 using namespace std;
 using namespace cv;
 Mat frame;
-void DrawKnife(int x, int y){
+void DrawImage(int &x, int &y){
 	for (int i = x - 1; i < x + 2; i++){
 		for (int j = y - 1; j < y + 2; j++){
 			frame.at<Vec3b>(i, j)[0] = 255;
@@ -24,10 +24,24 @@ int main()
 {
 	int num_frames = 0;
 	time_t start, end;
-	int max_i, max_j, min_i, min_j;
+	int max_i = -1, max_j = -1, min_i = 1000000, min_j = 1000000;
 	cv::VideoCapture cap(0);
-	cap.set(cv::CAP_PROP_FRAME_COUNT, 30);
+	cap.set(3, 640);
+	cap.set(4, 480);
+	namedWindow("hsv");
+	resizeWindow("hsv", 640, 240);
+	const char* windowName = "Fingertip detection";
 	int minH = 7, maxH = 32, minS = 246, maxS = 255, minV = 200, maxV = 255;
+	cv::namedWindow(windowName);
+	cv::createTrackbar("MinH", "hsv", &minH, 179);
+	cv::createTrackbar("MaxH", "hsv", &maxH, 179);
+	cv::createTrackbar("MinS", "hsv", &minS, 255);
+	cv::createTrackbar("MaxS", "hsv", &maxS, 255);
+	cv::createTrackbar("MinV", "hsv", &minV, 255);
+	cv::createTrackbar("MaxV", "hsv", &maxV, 255);
+	Point2f center;
+	std::vector<Point> vec;
+	Point pt;
 	time(&start);
 	float radius;
 	while (1)
@@ -39,9 +53,16 @@ int main()
 		flip(frame, frame, 1);
 		cv::Mat hsv;
 		cv::cvtColor(frame, hsv, COLOR_BGR2HSV);
+		minH = cv::getTrackbarPos("MinH", "hsv");
+		maxH = cv::getTrackbarPos("MaxH", "hsv");
+		minS = cv::getTrackbarPos("MinS", "hsv");
+		maxS = cv::getTrackbarPos("MaxS", "hsv");
+		minV = cv::getTrackbarPos("MinV", "hsv");
+		maxV = cv::getTrackbarPos("MaxV", "hsv");
+
 
 		cv::inRange(hsv, cv::Scalar(minH, minS, minV), cv::Scalar(maxH, maxS, maxV), mask);
-//		cv::bitwise_and(frame, frame, result, mask = mask);
+		cv::bitwise_and(frame, frame, result, mask = mask);
 
 		for (int i = 0; i < mask.rows; i++){
 			for (int j = 0; j < mask.cols; j++){
@@ -60,11 +81,16 @@ int main()
 		int mid_i = (min_i + max_i) / 2;
 		int mid_j = (min_j + max_j) / 2;
 		if (min_i < 1000000 && min_j < 1000000)
-			DrawKnife(mid_i, mid_j);
+			DrawImage(min_i, min_j);
 		cv::imshow("frame", frame);
+		cv::imshow("mask", mask);
+		cv::imshow("result", result);
 		if (cv::waitKey(30) >= 0) break;
+
+		vec.clear();
 	}
 	time(&end);
+	cout << "max_i: " << max_i << endl << "min_i: " << min_i << endl << "max_j: " << max_j << endl << "min_j: " << min_j << endl;
 	double seconds = difftime(end, start);
 	std::cout << "FRAME NUMBER -> " << num_frames << std::endl << "SECONDS -> " << seconds << std::endl << "FRAME RATE -> " << num_frames / seconds << std::endl;
 	return 0;

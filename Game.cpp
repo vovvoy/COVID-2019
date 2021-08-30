@@ -48,10 +48,12 @@ void Game::Run() {
 	Knife.cap_.set(cv::CAP_PROP_FPS, 30);
 	enemyBurn_ = std::time(nullptr);
 	time(&start);
+	cv::Mat frame;
 	srand((unsigned) time(nullptr));
 	while (!isGameEnded_){
 		num_frames_++;
-		game_frame_ = cv::Mat::zeros(720, 1280, CV_8U);
+		game_frame_ = cv::Mat::zeros(720,1280, CV_8U);
+//		cv::resize(game_frame_, frame, cv::Size(1280, 720), cv::INTER_LINEAR);
 		teleport_ >> frame_;
 		Knife.cap_ >> Knife.bla_;
 		cv::flip(Knife.bla_, Knife.bla_, 1);
@@ -80,7 +82,7 @@ void Game::Run() {
 		Knife.MoveWeapon(game_frame_);
 		DrawTeleport();
 		Knife.WeaponDamage(enemies_);
-		imshow("Aliens from valhalla", game_frame_);
+		imshow("Aliens from valhalla", 	game_frame_);
 		int key = cv::waitKey(1);
 		if (KeyCodes(key))
 			break;

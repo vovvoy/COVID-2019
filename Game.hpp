@@ -11,6 +11,7 @@
 #include <iostream>
 #include <cmath>
 #include <ctime>
+#include <map>
 #include "Weapon.hpp"
 #include "Enemy.hpp"
 
