@@ -26,12 +26,12 @@ int main()
 	time_t start, end;
 	int max_i = -1, max_j = -1, min_i = 1000000, min_j = 1000000;
 	cv::VideoCapture cap(0);
-	cap.set(3, 640);
-	cap.set(4, 480);
+//	cap.set(3, 640);
+//	cap.set(4, 480);
 	namedWindow("hsv");
-	resizeWindow("hsv", 640, 240);
+//	resizeWindow("hsv", 640, 480);
 	const char* windowName = "Fingertip detection";
-	int minH = 7, maxH = 32, minS = 246, maxS = 255, minV = 200, maxV = 255;
+	int minH = 7, maxH = 32, minS = 246                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      , maxS = 255, minV = 200, maxV = 255;
 	cv::namedWindow(windowName);
 	cv::createTrackbar("MinH", "hsv", &minH, 179);
 	cv::createTrackbar("MaxH", "hsv", &maxH, 179);
@@ -80,8 +80,9 @@ int main()
 		}
 		int mid_i = (min_i + max_i) / 2;
 		int mid_j = (min_j + max_j) / 2;
+		cout << mid_i << "   " << mid_j << endl;
 		if (min_i < 1000000 && min_j < 1000000)
-			DrawImage(min_i, min_j);
+			DrawImage(mid_i, mid_j);
 		cv::imshow("frame", frame);
 		cv::imshow("mask", mask);
 		cv::imshow("result", result);
@@ -90,7 +91,7 @@ int main()
 		vec.clear();
 	}
 	time(&end);
-	cout << "max_i: " << max_i << endl << "min_i: " << min_i << endl << "max_j: " << max_j << endl << "min_j: " << min_j << endl;
+//	cout << "max_i: " << max_i << endl << "min_i: " << min_i << endl << "max_j: " << max_j << endl << "min_j: " << min_j << endl;
 	double seconds = difftime(end, start);
 	std::cout << "FRAME NUMBER -> " << num_frames << std::endl << "SECONDS -> " << seconds << std::endl << "FRAME RATE -> " << num_frames / seconds << std::endl;
 	return 0;

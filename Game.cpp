@@ -1,98 +1,125 @@
 #include "Game.hpp"
+#include <thread>
 
-Game::Game(std::string black_hall, double speed, int hp) {
-	teleport_.open(black_hall);
-	hp_ = hp;
-	speed_ = speed;
+Game::Game() {
+	std::map<std::string, std::string> images_name = {
+			{"back_ground", "images/back_ground.jpg"},
+			{"virus", "images/virus.png"},
+			{"pills", "images/pills.png"},
+			{"virus_mask", "images/virus_mask.png"},
+			{"pills_mask", "images/pills_mask.png"},
+			{"digits", "images/digits.jpg"},
+	};
+
+	images_ = {
+			{"back_ground", cv::imread(images_name["back_ground"])},
+			{"virus", cv::imread(images_name["virus"])},
+			{"pills", cv::imread(images_name["pills"])},
+			{"virus_mask", cv::imread(images_name["virus_mask"])},
+			{"pills_mask", cv::imread(images_name["pills_mask"])},
+			{"digits", cv::imread(images_name["digits"])},
+	};
+	cap_.open(0);
+}
+
+void CallBackFunc(int event, int x, int y, int flags, void *userdata) {
+	std::pair<double, double> *coordinates;
+	coordinates = static_cast<std::pair<double, double> *>(userdata);
+	if ( event == cv::EVENT_MOUSEMOVE ) {
+		coordinates->first = x;
+		coordinates->second = y;
+	}
 }
 
 int Game::KeyCodes(int key){
 	if (key == 27)
 		return 1;
 	if (key == 'p'){
-		blur(game_frame_, game_frame_, cv::Size(14, 14), cv::Point(-1, -1));
-		cv::putText(game_frame_, "Pause!!!", cv::Point(game_frame_.rows / 2 + 100, game_frame_.cols / 4), cv::FONT_HERSHEY_PLAIN, 5, cv::Scalar(255), 2);
-		imshow("Aliens from valhalla", game_frame_);
+		cv::Mat pause = frame_.clone();
+//		blur(pause, pause, cv::Size(14, 14), cv::Point(-1, -1));
+		cv::putText(pause, "Pause!!!", cv::Point(pause.rows / 2 + 100, pause.cols / 4), cv::FONT_HERSHEY_PLAIN, 5, cv::Scalar(255), 2);
+		imshow("game", pause);
 		while(cv::waitKey(1) != 'p');
 	}
 	return 0;
 }
 
-void Game::MoveEnemy() {
-	for (auto enem = enemies_.begin(); enem < enemies_.end(); enem++)
-		if ((enem->x_ + enem->vecX_ * enem->speed_ + (double)enem->enemyImage_.rows / 2 < game_frame_.rows &&
-			 enem->x_ + enem->vecX_ * enem->speed_ + (double)enem->enemyImage_.rows / 2 > enem->enemyImage_.rows &&
-			 enem->y_ + enem->vecY_ * enem->speed_ + (double)enem->enemyImage_.cols / 2 < game_frame_.cols &&
-			 enem->y_ + enem->vecY_ * enem->speed_ + (double)enem->enemyImage_.cols / 2 > enem->enemyImage_.cols) && enem->hp_ > 0) {
-			enem->DrawEnemy(game_frame_);
-			enem->x_ += enem->vecX_ * enem->speed_;
-			enem->y_ += enem->vecY_ * enem->speed_;
-		} else if (enem->hp_ < 1){
-			enemies_.erase(enem);
-			score_++;
-		} else {
-			isGameEnded_ = true;
-		}
-}
 
-void Game::DrawTeleport() {
-	for (int n = 0, i = game_frame_.rows / 2 - frame_.rows / 2; i <= game_frame_.rows / 2 + frame_.rows / 2; i++, n++)
-		for (int m = 0, j = game_frame_.cols / 2 - frame_.cols / 2; j <= game_frame_.cols / 2 + frame_.cols / 2; j++, m += 3)
-			if (frame_.at<uchar>(n, m) > 80 && game_frame_.at<uchar>(i, j) == 0)
-				game_frame_.at<uchar>(i, j) = frame_.at<uchar>(n, m);
-}
+
 
 void Game::Run() {
 	time_t start, end;
-	Weapon Knife("knife.jpg", 40);
-	Knife.cap_.set(cv::CAP_PROP_FPS, 30);
+	Weapon Pills(images_["pills"], images_["pills_mask"]);
+//	cap_.set(cv::CAP_PROP_FPS, 30);
+	cv::namedWindow("game", 1);
+
+	Enemy Virus(images_["virus"], images_["virus_mask"], "images/teleport1.mp4");
+	frame_ = cv::imread("images/back_ground.jpg");
 	enemyBurn_ = std::time(nullptr);
 	time(&start);
-	cv::Mat frame;
 	srand((unsigned) time(nullptr));
 	while (!isGameEnded_){
 		num_frames_++;
-		game_frame_ = cv::Mat::zeros(720,1280, CV_8U);
-//		cv::resize(game_frame_, frame, cv::Size(1280, 720), cv::INTER_LINEAR);
-		teleport_ >> frame_;
-		Knife.cap_ >> Knife.bla_;
-		cv::flip(Knife.bla_, Knife.bla_, 1);
-		cv::cvtColor(Knife.bla_, Knife.hsv_, cv::COLOR_BGR2HSV);
-		cv::inRange(Knife.hsv_, cv::Scalar(minH, minS, minV),
-					cv::Scalar(maxH, maxS, maxV), Knife.mask_);
-		if (frame_.empty()){
-			teleport_.set(cv::CAP_PROP_POS_AVI_RATIO, 0.0);
-			continue ;
+		int score = 0;
+		cap_ >> Pills.kinect_;
+		cv::flip(Pills.kinect_, Pills.kinect_, 1);
+		cv::cvtColor(Pills.kinect_, Pills.hsv_, cv::COLOR_BGR2HSV);
+		cv::inRange(Pills.hsv_, cv::Scalar(minH, minS, minV),
+					cv::Scalar(maxH, maxS, maxV), Pills.mask_);
+//		auto move = std::thread(Pills.MoveWeapon, std::ref(frame_));
+//		cv::setMouseCallback("game", CallBackFunc, &Pills.knife_);
+		Pills.FindWeapon();
+		Virus.ChangeScore(frame_, images_["digits"], score, false);
+		cv::putText(frame_, "score: " + std::to_string(score), cv::Point(10, 20), cv::FONT_HERSHEY_PLAIN, 1.5, cv::Scalar(0), 2);
+
+		Virus.FindEnemy(frame_);
+		frame_ = images_["back_ground"].clone();
+		Pills.MoveWeapon(frame_);
+		Virus.IterateEnemies(frame_, images_["digits"], Pills.oldKnife_, Pills.knife_, score, isGameEnded_);
+		cv::putText(frame_, "score: " + std::to_string(score), cv::Point(10, 20), cv::FONT_HERSHEY_PLAIN, 1.5, cv::Scalar(0), 2);
+		for (auto & it : Virus.enemies_){
+			if (sqrt(pow(it.second.second - Pills.knife_.second, 2) + pow(it.second.first - Pills.knife_.first, 2)) < 40/* &&
+				sqrt(pow(it.second.second - oldKnife_.second, 2) + pow(it.second.first - oldKnife_.first, 2)) > 40*/) {
+				Virus.DrawHP(frame_, it.second.first, it.second.second, it.first - 20);
+			}
+			else {
+				Virus.DrawHP(frame_, it.second.first, it.second.second, it.first);
+			}
 		}
-		cv::pyrDown(frame_, frame_);
-		cv::pyrDown(frame_, frame_);
-		if (frame_.empty())
-		{
-			std::cout << "Video camera is disconnected" << std::endl;
-			break;
-		}
-		cv::putText(game_frame_, "score: " + std::to_string(score_), cv::Point(10, 20), cv::FONT_HERSHEY_PLAIN, 1.5, cv::Scalar(255), 2);
-		if (std::time(nullptr) - enemyBurn_ > 2) {
-			Enemy Enem("virus.png", game_frame_.rows / 2, game_frame_.cols / 2, speed_, std::rand() % 360, 100);
-			enemies_.push_back(Enem);
+		if (std::time(nullptr) - enemyBurn_ > 0) {
+			Virus.Teleport(frame_);
+			double x = 640, y = 360;
+			Virus.DrawEnemy(frame_, x, y);
+			Virus.DrawHP(frame_, 640, 360, 100);
 			enemyBurn_ = std::time(nullptr);
 		}
-		MoveEnemy();
-		Knife.FindWeapon();
-		Knife.MoveWeapon(game_frame_);
-		DrawTeleport();
-		Knife.WeaponDamage(enemies_);
-		imshow("Aliens from valhalla", 	game_frame_);
+		for (auto & it : Virus.enemies_){
+			if (sqrt(pow(it.second.second - Pills.knife_.second, 2) + pow(it.second.first - Pills.knife_.first, 2)) < 40 &&
+				sqrt(pow(it.second.second - Pills.oldKnife_.second, 2) + pow(it.second.first - Pills.oldKnife_.first, 2)) > 40) {
+				Virus.DrawHP(frame_, (int)it.second.first, (int)it.second.second, (int)it.first - 20);
+			}
+			else {
+				Virus.DrawHP(frame_, (int)it.second.first, (int)it.second.second, (int)it.first);
+			}
+		}
+//		std::cout << Pills.knife_.first << "  " << Pills.knife_.second << std::endl;
+
+//		Pills.WeaponDamage(enemies_);
+		imshow("game", 	frame_);
 		int key = cv::waitKey(1);
 		if (KeyCodes(key))
 			break;
+		Virus.enemies_.clear();
 	}
 
+
 	if (isGameEnded_) {
-		cv::blur(game_frame_, game_frame_, cv::Size(14, 14), cv::Point(-1, -1));
-		cv::putText(game_frame_, "GameOver!!!", cv::Point(game_frame_.rows / 2, game_frame_.cols / 6), cv::FONT_HERSHEY_PLAIN, 5, cv::Scalar(255), 2);
-		cv::putText(game_frame_, "Your score is " + std::to_string(score_), cv::Point(game_frame_.rows / 2 + 40, game_frame_.cols / 4), cv::FONT_HERSHEY_PLAIN, 3, cv::Scalar(255), 2);
-		imshow("Aliens from valhalla", game_frame_);
+		int score = 0;
+		Virus.ChangeScore(frame_, images_["digits"], score, false);
+		cv::blur(frame_, frame_, cv::Size(14, 14), cv::Point(-1, -1));
+		cv::putText(frame_, "GameOver!!!", cv::Point(frame_.rows / 2, frame_.cols / 6), cv::FONT_HERSHEY_PLAIN, 5, cv::Scalar(255), 2);
+		cv::putText(frame_, "Your score is " + std::to_string(score), cv::Point(frame_.rows / 2 + 40, frame_.cols / 4), cv::FONT_HERSHEY_PLAIN, 3, cv::Scalar(255), 2);
+		imshow("game", frame_);
 		cv::waitKey();
 	}
 	time(&end);

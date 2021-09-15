@@ -19,15 +19,16 @@ typedef struct s_enemy{
 
 class Weapon {
 public:
-	Weapon(std::string path, int damage);
+	Weapon(cv::Mat &pills, cv::Mat &pills_mask);
 	void DrawWeapon(int x, int y, cv::Mat &game_frame);
 	void FindWeapon();
-	void MoveWeapon(cv::Mat game_frame);
+	void MoveWeapon(cv::Mat game);
 	void WeaponDamage(std::vector<Enemy> &enemies) const;
 	~Weapon();
 	int damage_;
+	void hello(cv::Mat &  frame);
 	std::pair<double, double> knife_, oldKnife_;
-	cv::Mat knifeImage_, hsv_, mask_, bla_;
+	cv::Mat pills_, hsv_, mask_, kinect_, pillsMask_;
 	cv::VideoCapture cap_;
 };
 
