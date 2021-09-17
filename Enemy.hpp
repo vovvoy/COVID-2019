@@ -11,6 +11,7 @@
 #include <iostream>
 #include <cmath>
 #include <ctime>
+#include <thread>
 
 class Enemy {
 public:
@@ -19,6 +20,7 @@ public:
 	void DrawEnemy(const cv::Mat &game, double &x, double &y);
 	void DrawHP(const cv::Mat &game, double x, double y, int hp);
 	void FindEnemy(const cv::Mat& game);
+	void Thread(cv::Mat frame, std::thread &t);
 	void ChangeScore(const cv::Mat &game, const cv::Mat &digits, int &score, bool flag);
 	void DirectEnemy(std::pair<double, std::pair<double, double>> &enemy, double &x, double &y);
 	void IterateEnemies(const cv::Mat &game, const cv::Mat &digits, std::pair<double, double> oldKnife_,

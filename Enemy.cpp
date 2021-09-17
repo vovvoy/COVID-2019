@@ -1,6 +1,7 @@
 #include "Enemy.hpp"
 
 #include <utility>
+//#include <thread>
 
 Enemy::Enemy(cv::Mat &enemy, cv::Mat &enemy_mask, const std::string &teleport) {
 	enemy_ = enemy;
@@ -63,6 +64,12 @@ void Enemy::FindEnemy(const cv::Mat &game) {
 	enemies_ = tmp;
 }
 
+void Enemy::Thread(cv::Mat frame, std::thread &t) {
+	t = std::thread(&Enemy::FindEnemy, this, frame);
+//	t.detach();
+//	t.join();
+}
+
 void Enemy::DirectEnemy(std::pair<double, std::pair<double, double>> &enemy, double &x, double &y) {
 	double angle;
 	angle = rand() % 360;
@@ -122,8 +129,7 @@ void Enemy::IterateEnemies(const cv::Mat &game, const cv::Mat &digits, std::pair
 			MoveEnemy(const_cast<std::pair<double, std::pair<double, double>> &>(it), x, y);
 
 		if (x + 25 < game.cols && x > 25 && y < game.rows - 25 && y > 25) {
-			if (/*sqrt(pow(it.second.second - knife_.second, 2) + pow(it.second.first - knife_.first, 2)) < 40 &&
-				sqrt(pow(it.second.second - oldKnife_.second, 2) + pow(it.second.first - oldKnife_.first, 2)) > 40 && */it.first - 20 <= 0){
+			if (it.first - 20 <= 0){
 				ChangeScore(game, digits, score, true);
 			} else if (it.first - 20 > 0) {
 				DrawEnemy(game, x, y);

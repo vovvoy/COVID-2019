@@ -18,19 +18,17 @@
 class Game {
 public:
 	Game();
-//	void WeaponDamage(int hp);
-	void ChangeScore();
-//	void CallBackFunc(int event, int x, int y, int flags, void* userdata);
-	int KeyCodes(int key);
 	void Run();
 	~Game();
+
+private:
+//	void CallBackFunc(int event, int x, int y, int flags, void* userdata);
+	int KeyCodes(int key);
 	cv::VideoCapture cap_;
-	cv::Mat frame_, game_frame_;
+	cv::Mat frame_;
 	int num_frames_ = 0;
 	double speed_;
 	int x_, y_;
-	int score_ = 0;
-	int minH = 7, maxH = 32, minS = 246, maxS = 255, minV = 200, maxV = 255;
 	int hp_	;
 	std::map<std::string, cv::Mat> images_;
 	time_t enemyBurn_;

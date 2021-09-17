@@ -50,36 +50,35 @@ int Game::KeyCodes(int key){
 void Game::Run() {
 	time_t start, end;
 	Weapon Pills(images_["pills"], images_["pills_mask"]);
-//	cap_.set(cv::CAP_PROP_FPS, 30);
+	cap_.set(cv::CAP_PROP_FPS, 30);
 	cv::namedWindow("game", 1);
 
 	Enemy Virus(images_["virus"], images_["virus_mask"], "images/teleport1.mp4");
 	frame_ = cv::imread("images/back_ground.jpg");
 	enemyBurn_ = std::time(nullptr);
 	time(&start);
+	std::thread t;
 	srand((unsigned) time(nullptr));
 	while (!isGameEnded_){
 		num_frames_++;
 		int score = 0;
 		cap_ >> Pills.kinect_;
-		cv::flip(Pills.kinect_, Pills.kinect_, 1);
-		cv::cvtColor(Pills.kinect_, Pills.hsv_, cv::COLOR_BGR2HSV);
-		cv::inRange(Pills.hsv_, cv::Scalar(minH, minS, minV),
-					cv::Scalar(maxH, maxS, maxV), Pills.mask_);
-//		auto move = std::thread(Pills.MoveWeapon, std::ref(frame_));
 //		cv::setMouseCallback("game", CallBackFunc, &Pills.knife_);
-		Pills.FindWeapon();
+
+		Pills.Thread();
 		Virus.ChangeScore(frame_, images_["digits"], score, false);
 		cv::putText(frame_, "score: " + std::to_string(score), cv::Point(10, 20), cv::FONT_HERSHEY_PLAIN, 1.5, cv::Scalar(0), 2);
 
-		Virus.FindEnemy(frame_);
+//		Virus.FindEnemy(frame_);
+		Virus.Thread(frame_, t);
 		frame_ = images_["back_ground"].clone();
 		Pills.MoveWeapon(frame_);
+		t.join();
 		Virus.IterateEnemies(frame_, images_["digits"], Pills.oldKnife_, Pills.knife_, score, isGameEnded_);
 		cv::putText(frame_, "score: " + std::to_string(score), cv::Point(10, 20), cv::FONT_HERSHEY_PLAIN, 1.5, cv::Scalar(0), 2);
 		for (auto & it : Virus.enemies_){
-			if (sqrt(pow(it.second.second - Pills.knife_.second, 2) + pow(it.second.first - Pills.knife_.first, 2)) < 40/* &&
-				sqrt(pow(it.second.second - oldKnife_.second, 2) + pow(it.second.first - oldKnife_.first, 2)) > 40*/) {
+			if (sqrt(pow(it.second.second - Pills.knife_.second, 2) + pow(it.second.first - Pills.knife_.first, 2)) < 40 &&
+				sqrt(pow(it.second.second - Pills.oldKnife_.second, 2) + pow(it.second.first - Pills.oldKnife_.first, 2)) > 40) {
 				Virus.DrawHP(frame_, it.second.first, it.second.second, it.first - 20);
 			}
 			else {
@@ -104,7 +103,6 @@ void Game::Run() {
 		}
 //		std::cout << Pills.knife_.first << "  " << Pills.knife_.second << std::endl;
 
-//		Pills.WeaponDamage(enemies_);
 		imshow("game", 	frame_);
 		int key = cv::waitKey(1);
 		if (KeyCodes(key))
