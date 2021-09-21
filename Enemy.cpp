@@ -1,15 +1,15 @@
 #include "Enemy.hpp"
 
 #include <utility>
-//#include <thread>
 
 Enemy::Enemy(cv::Mat &enemy, cv::Mat &enemy_mask, const std::string &teleport) {
 	enemy_ = enemy;
 	enemyMask_ = enemy_mask;
 	cap_.open(teleport);
+	speed_ = 2;
 }
 
-void Enemy::Teleport(cv::Mat &game) {
+void Enemy::Teleport(cv::Mat game) {
 	cv::Mat video;
 	while (true) {
 		cap_ >> video;
@@ -34,56 +34,80 @@ void Enemy::Teleport(cv::Mat &game) {
 	}
 }
 
-void Enemy::FindEnemy(const cv::Mat &game) {
-	for (int x = 0; x < game.cols; x++) {
+void Enemy::FindEnemy(const cv::Mat &game, int start, int end) {
+
+	for (int x = start; x < end; x++) {
 		for (int y = 0; y < game.rows; y++) {
 			cv::Vec3b back = game.at<cv::Vec3b>(cv::Point(x, y));
 			cv::Vec3b back1 = game.at<cv::Vec3b>(cv::Point(x, y + 1));
 			cv::Vec3b back2 = game.at<cv::Vec3b>(cv::Point(x, y));
 			cv::Vec3b back3 = game.at<cv::Vec3b>(cv::Point(x, y + 1));
-			if (back[0] == 251 && back[1] == 158 && back[2] == 213 &&
-				back1[0] == 250 && back1[1] == 149 && back1[2] == 208)
-				enemies_.insert(std::make_pair(100, std::make_pair(x + 25, y - 2)));
+//			if (back[0] == 251 && back[1] == 158 && back[2] == 213 &&
+//				back1[0] == 250 && back1[1] == 149 && back1[2] == 208)
+//				enemies_.emplace_back(std::make_pair(100, std::make_pair(x + 25, y - 2)));
 			if (back3[0] == 251 && back3[1] == 154 && back3[2] == 210 &&
 				back2[0] == 250 && back2[1] == 145 && back2[2] == 208)
-				enemies_.insert(std::make_pair(100, std::make_pair(x - 24, y + 4)));
+				enemies_.emplace_back(std::make_pair(100, std::make_pair(x - 24, y + 4)));
 		}
 	}
-	std::set<std::pair<double, std::pair<double, double>>> tmp;
+	std::vector<std::pair<double, std::pair<double, double>>> tmp;
 	for (auto & it : enemies_) {
 		for (int hp = it.second.first + 25, color = 105; hp >= it.second.first - 25; hp--, color += 3){
 			cv::Vec3b health = game.at<cv::Vec3b>(it.second.second - 28, hp);
-//			std::cout << color << std::endl;
 			if (health[0] == 0 && health[1] == 165 && health[2] == color) {
-				tmp.insert(std::make_pair((255 - color) / 3, std::make_pair(it.second.first, it.second.second)));
+				tmp.emplace_back(std::make_pair((255 - color) / 3, std::make_pair(it.second.first, it.second.second)));
 				break ;
 			}
 		}
 	}
 	enemies_.clear();
 	enemies_ = tmp;
+	sort(enemies_.begin(), enemies_.end());
+	std::reverse(enemies_.begin(), enemies_.end());
 }
 
-void Enemy::Thread(cv::Mat frame, std::thread &t) {
-	t = std::thread(&Enemy::FindEnemy, this, frame);
-//	t.detach();
-//	t.join();
+time_t &Enemy::GetTime() {
+	return time_;
 }
 
-void Enemy::DirectEnemy(std::pair<double, std::pair<double, double>> &enemy, double &x, double &y) {
+void Enemy::ClearEnemies() {
+	enemies_.clear();
+}
+
+void Enemy::Thread(cv::Mat frame) {
+//	std::vector<std::thread> vec;
+//	for (int i = 0; i < frame.cols; i += frame.cols / 2)
+//		vec.emplace_back(std::thread(&Enemy::FindEnemy, this, frame, i, i + frame.cols / 2));
+//	for (auto & it : vec)
+//		it.join();
+	std::thread t;
+	t = std::thread(&Enemy::FindEnemy, this, frame, frame.cols / 2, frame.cols);
+	FindEnemy(frame, 0, frame.cols / 2);
+	t.join();
+}
+
+void Enemy::DirectEnemy(std::pair<double, std::pair<double, double>> &enemy, double &x, double &y, int &score) {
 	double angle;
 	angle = rand() % 360;
-	x = enemy.second.first + cos(angle) * 5;
-	y = enemy.second.second + sin(angle) * 5;
+	if (std::time(nullptr) - time_ > 20) {
+		speed_++;
+		std::time(&time_);
+	}
+	x = enemy.second.first + cos(angle) * speed_;
+	y = enemy.second.second + sin(angle) * speed_;
 }
 
-void Enemy::MoveEnemy(std::pair<double, std::pair<double, double>> &enemy, double &x, double &y) {
+void Enemy::MoveEnemy(std::pair<double, std::pair<double, double>> &enemy, double &x, double &y, int &score) {
 	double length = sqrt(pow(enemy.second.first - 640.0, 2) + pow(enemy.second.second - 360.0, 2));
 	double vx, vy;
+	if (std::time(nullptr) - time_ > 20) {
+		speed_++;
+		std::time(&time_);
+	}
 	vx = (enemy.second.first - 640.0) / length;
 	vy = (enemy.second.second - 360.0) / length;
-	x = enemy.second.first + vx * 5;
-	y = enemy.second.second + vy * 5;
+	x = enemy.second.first + vx * speed_;
+	y = enemy.second.second + vy * speed_;
 }
 
 void Enemy::ChangeScore(const cv::Mat &game, const cv::Mat &digits, int &score, bool flag) {
@@ -121,19 +145,19 @@ void Enemy::ChangeScore(const cv::Mat &game, const cv::Mat &digits, int &score, 
 void Enemy::IterateEnemies(const cv::Mat &game, const cv::Mat &digits, std::pair<double, double> oldKnife_,
 						   std::pair<double, double> knife_, int &score, bool &isGameEnded) {
 	double x, y;
-	std::set<std::pair<double, std::pair<double, double>>> tmp;
+	std::vector<std::pair<double, std::pair<double, double>>> tmp;
 	for (auto & it : enemies_) {
 		if (it.second.first == 640 && it.second.second == 360)
-			DirectEnemy(const_cast<std::pair<double, std::pair<double, double>> &>(it), x, y);
+			DirectEnemy(const_cast<std::pair<double, std::pair<double, double>> &>(it), x, y, score);
 		else
-			MoveEnemy(const_cast<std::pair<double, std::pair<double, double>> &>(it), x, y);
+			MoveEnemy(const_cast<std::pair<double, std::pair<double, double>> &>(it), x, y, score);
 
 		if (x + 25 < game.cols && x > 25 && y < game.rows - 25 && y > 25) {
 			if (it.first - 20 <= 0){
-				ChangeScore(game, digits, score, true);
+				score++;
 			} else if (it.first - 20 > 0) {
 				DrawEnemy(game, x, y);
-				tmp.insert(std::make_pair(it.first, std::make_pair(x, y)));
+				tmp.emplace_back(std::make_pair(it.first, std::make_pair(x, y)));
 			}
 		} else {
 			isGameEnded = true;
@@ -143,6 +167,18 @@ void Enemy::IterateEnemies(const cv::Mat &game, const cv::Mat &digits, std::pair
 	if (tmp.size()){
 		enemies_.clear();
 		enemies_ = tmp;
+	}
+}
+
+void Enemy::EnemyHP(cv::Mat &frame, std::pair<double, double> knife_, std::pair<double, double> oldKnife_) {
+	for (auto & it : enemies_){
+		if (sqrt(pow(it.second.second - knife_.second * 1.5, 2) + pow(it.second.first - knife_.first * 2, 2)) < 40 &&
+			sqrt(pow(it.second.second - oldKnife_.second * 1.5, 2) + pow(it.second.first - oldKnife_.first * 2, 2)) > 40) {
+			DrawHP(frame, it.second.first, it.second.second, it.first - 20);
+		}
+		else {
+			DrawHP(frame, it.second.first, it.second.second, it.first);
+		}
 	}
 }
 

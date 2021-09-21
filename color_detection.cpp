@@ -25,7 +25,7 @@ int main()
 	int num_frames = 0;
 	time_t start, end;
 	int max_i = -1, max_j = -1, min_i = 1000000, min_j = 1000000;
-	cv::VideoCapture cap(0);
+	cv::VideoCapture cap(1);
 	cap.set(cv::CAP_PROP_FPS, 30);
 //	cap.set(3, 640);
 //	cap.set(4, 480);

@@ -1,0 +1,3 @@
+/home/ljerrica/Desktop/opencv_project/CMakeFiles/rebuild_cache.dir
+/home/ljerrica/Desktop/opencv_project/CMakeFiles/opencv_project.dir
+/home/ljerrica/Desktop/opencv_project/CMakeFiles/edit_cache.dir

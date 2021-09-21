@@ -16,28 +16,28 @@
 class Enemy {
 public:
 	Enemy(cv::Mat &enemy, cv::Mat &enemy_mask, const std::string &teleport);
-	void Teleport(cv::Mat & game);
+	void Teleport(cv::Mat game);
 	void DrawEnemy(const cv::Mat &game, double &x, double &y);
 	void DrawHP(const cv::Mat &game, double x, double y, int hp);
-	void FindEnemy(const cv::Mat& game);
-	void Thread(cv::Mat frame, std::thread &t);
-	void ChangeScore(const cv::Mat &game, const cv::Mat &digits, int &score, bool flag);
-	void DirectEnemy(std::pair<double, std::pair<double, double>> &enemy, double &x, double &y);
+	void EnemyHP(cv::Mat &frame, std::pair<double, double> knife_,
+				 std::pair<double, double> oldKnife_);
 	void IterateEnemies(const cv::Mat &game, const cv::Mat &digits, std::pair<double, double> oldKnife_,
 						std::pair<double, double> knife_, int &score, bool &isGameEnded);
-	void MoveEnemy(std::pair<double, std::pair<double, double>> &enemy, double &x, double &y);
+	void Thread(cv::Mat frame);
+	void ChangeScore(const cv::Mat &game, const cv::Mat &digits, int &score, bool flag);
+	time_t & GetTime();
+	void ClearEnemies();
 	~Enemy();
-
+	void FindEnemy(const cv::Mat &game, int start, int end);
+private:
+	void DirectEnemy(std::pair<double, std::pair<double, double>> &enemy, double &x, double &y, int &score);
+	void MoveEnemy(std::pair<double, std::pair<double, double>> &enemy, double &x, double &y, int &score);
+	std::vector<std::pair<double, std::pair<double, double>>> enemies_;
 	cv::Mat enemy_;
 	cv::Mat enemyMask_;
-	std::set<std::pair<double, std::pair<double, double>>> enemies_;
 	cv::VideoCapture cap_;
-	int x_;
-	int y_;
-	double vecX_;
-	double vecY_;
 	double speed_;
-	int hp_;
+	time_t time_;
 
 };
 

@@ -22,18 +22,15 @@ public:
 	~Game();
 
 private:
-//	void CallBackFunc(int event, int x, int y, int flags, void* userdata);
+	void IsGameEnded();
 	int KeyCodes(int key);
 	cv::VideoCapture cap_;
 	cv::Mat frame_;
 	int num_frames_ = 0;
-	double speed_;
-	int x_, y_;
-	int hp_	;
+	int score_ = 0;
 	std::map<std::string, cv::Mat> images_;
 	time_t enemyBurn_;
 	bool isGameEnded_ = false;
-	std::vector<Enemy> enemies_;
 };
 
 
