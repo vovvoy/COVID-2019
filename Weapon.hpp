@@ -7,9 +7,7 @@ class Weapon {
 public:
 	Weapon(cv::Mat &pills, cv::Mat &pills_mask);
 	void FindWeapon();
-	void Thread();
 	void MoveWeapon(cv::Mat game);
-	void WeaponDamage(std::vector<Enemy> &enemies) const;
 	std::pair<double, double> &GetKnife();
 	std::pair<double, double> &GetOldKnife();
 	cv::Mat & GetKinect();
