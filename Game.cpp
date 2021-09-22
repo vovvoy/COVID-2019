@@ -71,14 +71,14 @@ void Game::Run() {
 	srand((unsigned) time(nullptr));
 	while (!isGameEnded_){
 		num_frames_++;
-		cap_ >> Pills.kinect_;
+		cap_ >> Pills.GetKinect();
 
 		Pills.FindWeapon();Virus.Thread(frame_);
 		frame_ = images_["back_ground"].clone();
 		Pills.MoveWeapon(frame_);
-		Virus.IterateEnemies(frame_, images_["digits"], Pills.oldKnife_, Pills.knife_, score_, isGameEnded_);
+		Virus.IterateEnemies(frame_, images_["digits"], Pills.GetOldKnife(), Pills.GetKnife(), score_, isGameEnded_);
 		cv::putText(frame_, "score: " + std::to_string(score_), cv::Point(10, 20), cv::FONT_HERSHEY_PLAIN, 1.5, cv::Scalar(0), 2);
-		Virus.EnemyHP(frame_, Pills.knife_, Pills.oldKnife_);
+		Virus.EnemyHP(frame_, Pills.GetKnife(), Pills.GetOldKnife());
 		if (std::time(nullptr) - enemyBurn_ > 1) {
 			Virus.Teleport(frame_.clone());
 			double x = 640, y = 360;

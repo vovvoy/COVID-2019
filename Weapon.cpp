@@ -14,6 +14,18 @@ void Weapon::MoveWeapon(cv::Mat game) {
 	}
 }
 
+std::pair<double, double> &Weapon::GetKnife() {
+	return knife_;
+}
+
+std::pair<double, double> &Weapon::GetOldKnife() {
+	return oldKnife_;
+}
+
+cv::Mat &Weapon::GetKinect() {
+	return kinect_;
+}
+
 
 void Weapon::FindWeapon() {
 	cv::flip(kinect_, kinect_, 1);

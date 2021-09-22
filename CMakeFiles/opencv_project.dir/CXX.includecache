@@ -6,12 +6,6 @@
 
 #IncludeRegexTransform: 
 
-/home/ljerrica/Desktop/opencv_project/Enemy.cpp
-Enemy.hpp
-/home/ljerrica/Desktop/opencv_project/Enemy.hpp
-utility
--
-
 /home/ljerrica/Desktop/opencv_project/Enemy.hpp
 opencv2/opencv.hpp
 -
